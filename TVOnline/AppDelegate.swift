@@ -21,7 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
-        UINavigationBar.appearance().isTranslucent = false
+//        UINavigationBar.appearance().isTranslucent = false
+        
+        UITabBar.appearance().isTranslucent = false
+        UITabBar.appearance().barTintColor = .black
+        UITabBar.appearance().tintColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 0.9465699914)
+        
         return true
     }
 

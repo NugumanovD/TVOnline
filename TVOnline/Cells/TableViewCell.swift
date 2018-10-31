@@ -10,7 +10,9 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
-    var imageArray = ["1","2","3","4","5","6"]
+    let imageArray = ["1","2","3","4","5","6"]
+    let filmsArray = ["film1", "film2", "2","3","4","5","6" ]
+    let namesArray = ["Bob", "Charlie", "Jack", "Martin", "Russel", "Beagle", "QWerrty", "}{POO"]
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: Cell.identifierCollectionView)
@@ -52,19 +54,21 @@ class TableViewCell: UITableViewCell {
 extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageArray.count
+        
+        return filmsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifierCollectionView, for: indexPath) as! CollectionViewCell
-        cell.imageView.image = UIImage(named: imageArray[indexPath.row])
         
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifierCollectionView, for: indexPath) as! CollectionViewCell
+        cell.imageView.image = UIImage(named: filmsArray[indexPath.row])
+        cell.nameLabel.text = namesArray[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: (frame.width - 40) / 3, height: frame.height - 40)
+
+        return CGSize(width: (frame.width ) / 3, height: frame.height )
     }
     
 }

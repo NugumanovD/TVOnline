@@ -18,32 +18,34 @@ class VideoTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Video"
         tableView.tableFooterView = UIView()
         tableView.register(TableViewCell.self, forCellReuseIdentifier: Cell.identifierTableView)
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableView.automaticDimension
-     }
-    
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-
-        return "tableView"
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
     }
-
+    
+//    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+//
+//        return "tableView"
+//    }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifierTableView, for: indexPath) as! TableViewCell
-            
-            return cell
+        cell.backgroundColor = .clear
+       
+        return cell
         
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140
+        return 200
     }
     
 }

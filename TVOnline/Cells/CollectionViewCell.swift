@@ -10,8 +10,6 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
     
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCell()
@@ -22,17 +20,35 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     var imageView: UIImageView = {
+        
         let image = UIImageView()
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
+        image.layer.cornerRadius = 6
+        image.layer.masksToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
+        
         return image
+    }()
+    
+    let nameLabel: UILabel = {
+        
+        let label = UILabel()
+        label.textColor = .white
+        label.text = "Hello"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
     }()
     
     func setupCell() {
         addSubview(imageView)
+        addSubview(nameLabel)
         
-        let views = ["image": imageView]
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[image]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-3-[image]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        let views = ["image": imageView, "label": nameLabel]
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[image]-3-|", options: [], metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[label]-3-|", options: [], metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[image][label]|", options: [], metrics: nil, views: views))
+        
     }
 }
