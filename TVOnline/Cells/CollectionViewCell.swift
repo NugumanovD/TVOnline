@@ -22,6 +22,7 @@ class CollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView = {
         
         let image = UIImageView()
+        
         image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 6
         image.layer.masksToBounds = true
@@ -34,7 +35,20 @@ class CollectionViewCell: UICollectionViewCell {
         
         let label = UILabel()
         label.textColor = .white
+        label.font = label.font.withSize(16)
         label.text = "Hello"
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    let yearLabel: UILabel = {
+        
+        let label = UILabel()
+        label.textColor = .white
+        label.font = label.font.withSize(14)
+        label.text = "2004"
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -43,12 +57,13 @@ class CollectionViewCell: UICollectionViewCell {
     func setupCell() {
         addSubview(imageView)
         addSubview(nameLabel)
+        addSubview(yearLabel)
         
-        let views = ["image": imageView, "label": nameLabel]
+        let views = ["image": imageView, "name": nameLabel, "year": yearLabel]
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[image]-3-|", options: [], metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[label]-3-|", options: [], metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[image][label]|", options: [], metrics: nil, views: views))
-        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[image]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[name]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[year]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[image(170)][name][year]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
     }
 }

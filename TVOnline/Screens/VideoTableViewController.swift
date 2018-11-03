@@ -9,43 +9,63 @@
 import Foundation
 import UIKit
 
-enum Cell {
-    static let identifierTableView = "tableView"
-    static let identifierCollectionView = "collectionView"
-}
-
 class VideoTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableFooterView = UIView()
         tableView.register(TableViewCell.self, forCellReuseIdentifier: Cell.identifierTableView)
-        tableView.estimatedRowHeight = 120
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.backgroundColor = .clear
+        tableView.rowHeight = UITableView.automaticDimension
+        setupNavigationBar()
+        
     }
     
-//    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-//
-//        return "tableView"
-//    }
+    func setupNavigationBar() {
+        navigationController?.navigationBar.barTintColor = .clear
+        self.navigationItem.title = "Видео"
+        
+        let searchItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(find))
+        
+        searchItem.tintColor = UIColor(cgColor: #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 0.9465699914))
+        
+        
+        self.navigationItem.rightBarButtonItem = searchItem
+    }
+    
+    let nameLabel: UILabel = {
+        
+        let label = UILabel()
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    @objc func find() {
+        print("Find")
+    }
+    
+    // MARK: - TableView Delegate
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return infoList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifierTableView, for: indexPath) as! TableViewCell
         cell.backgroundColor = .clear
-       
+        cell.playList = infoList[indexPath.row].films
+        cell.headerNameResource.text = infoList[indexPath.row].nameResource
+        
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        print(self.view.frame.size.height / 3)
+        return self.view.frame.size.height / 3
     }
-    
 }

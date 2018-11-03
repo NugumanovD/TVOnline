@@ -6,12 +6,16 @@
 //  Copyright © 2018 Nugumanov Dmitry. All rights reserved.
 //
 
-
 import UIKit
+
+enum Cell {
+    static let identifierTableView = "tableView"
+    static let identifierCollectionView = "collectionView"
+}
 
 class TapBarContoller: UITabBarController {
     
-    var viewControllerList = [Any]()
+    private var viewControllerList = [UIViewController]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,27 +28,15 @@ class TapBarContoller: UITabBarController {
     }
     
     func setupTabBarElement(vc: UIViewController, title: String, image: String)  {
-        let controller = vc
+        let controller = UINavigationController(rootViewController: vc)
+        
         controller.tabBarItem.title = title
         controller.tabBarItem.image = UIImage(named: image)
         
-        controller.view.backgroundColor = .black
+        navigationController?.navigationBar.barTintColor = .clear
         viewControllerList.append(controller)
-        viewControllers = (viewControllerList as! [UIViewController])
+        viewControllers = viewControllerList
     }
-    
-    
-    
-    
-    override func viewWillLayoutSubviews() {
-        
-        //        var tabFrame = tabBar.frame
-        //        tabFrame.size.height = 80
-        //        tabFrame.origin.y = self.view.frame.size.height - 90
-        //        tabBar.frame = tabFrame
-    }
-    
-    
 }
 
 
