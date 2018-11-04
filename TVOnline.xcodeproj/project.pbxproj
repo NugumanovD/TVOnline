@@ -53,6 +53,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B2133F5218F358200DFC5B5 /* Net Manager */ = {
+			isa = PBXGroup;
+			children = (
+				7BCC665C218DFE9E00BA1CB1 /* NetWorker.swift */,
+			);
+			path = "Net Manager";
+			sourceTree = "<group>";
+		};
+		7B2133F6218F35A500DFC5B5 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				7BCC665E218DFEF400BA1CB1 /* Global.swift */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
 		7B261F1B218C8E8400ED5653 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,15 +97,15 @@
 			isa = PBXGroup;
 			children = (
 				7B52A1A6217B2860001028D8 /* AppDelegate.swift */,
+				7B2133F6218F35A500DFC5B5 /* Global */,
 				7B261F1B218C8E8400ED5653 /* Model */,
 				7BB9D690218346EB003B1910 /* Main Controller */,
 				7BB9D68F218346DC003B1910 /* Screens */,
 				7BB9D693218348A4003B1910 /* Cells */,
+				7B2133F5218F358200DFC5B5 /* Net Manager */,
 				7B52A1AD217B2861001028D8 /* Assets.xcassets */,
 				7B52A1AF217B2861001028D8 /* LaunchScreen.storyboard */,
 				7B52A1B2217B2861001028D8 /* Info.plist */,
-				7BCC665C218DFE9E00BA1CB1 /* NetWorker.swift */,
-				7BCC665E218DFEF400BA1CB1 /* Global.swift */,
 			);
 			path = TVOnline;
 			sourceTree = "<group>";

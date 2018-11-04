@@ -60,7 +60,7 @@ class CollectionViewCell: UICollectionViewCell {
         DispatchQueue.global().async {
             let data = try! Data(contentsOf: urlImage!)
             let image = UIImage(data: data)!
-            imageView.contentMode = .scaleAspectFit
+
             DispatchQueue.main.async {
                 imageView.image = image
             }

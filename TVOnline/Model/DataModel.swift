@@ -14,7 +14,7 @@ struct Welcome: Codable {
     
     enum CodingKeys: String, CodingKey {
         case page
-       
+        
         case totalResults = "total_results"
         case totalPages = "total_pages"
         case results
@@ -72,7 +72,7 @@ enum CodingKeys: String, Codable  {
 
 
 
- 
+
 
 
 

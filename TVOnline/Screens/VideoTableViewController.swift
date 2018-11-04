@@ -13,7 +13,6 @@ class VideoTableViewController: UITableViewController {
     var items = TableViewCell()
     let worker = NetWorker()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(TableViewCell.self, forCellReuseIdentifier: Cell.identifierTableView)
@@ -22,8 +21,6 @@ class VideoTableViewController: UITableViewController {
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
         setupNavigationBar()
-//        getData()
-        
     }
     
     func setupNavigationBar() {
@@ -33,7 +30,6 @@ class VideoTableViewController: UITableViewController {
         let searchItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(find))
         
         searchItem.tintColor = UIColor(cgColor: #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 0.9465699914))
-        
         
         self.navigationItem.rightBarButtonItem = searchItem
     }
@@ -51,39 +47,32 @@ class VideoTableViewController: UITableViewController {
         print("Find")
     }
     
-//    func getData() {
-//        let myCompletion: (Data?, Error?) -> Void = { [weak self] data, error in
-//            if let error = error {
-//                print(error)
-//                return
-//            }
-//            guard let data = data else { return }
-//            let filmItems = try? JSONDecoder().decode(Welcome.self, from: data)
-//            self!.items.playList = (filmItems?.results)!
-//            print(self!.items.playList)
-//    }
-//        worker.swiftBookRequest(completion: myCompletion)
-//    }
-    
     
     // MARK: - TableView Delegate
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return /*infoList.count*/ 3
+        return  3
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifierTableView, for: indexPath) as! TableViewCell
         cell.backgroundColor = .clear
-//        cell.playList = infoList[indexPath.row]
         
+        switch indexPath.row {
+        case 0:
+            cell.headerNameResource.text = "IVI"
+        case 1:
+            cell.headerNameResource.text = "MEGOGO"
+        case 3:
+            cell.headerNameResource.text = "AMEDI"
+        default:
+            break
+        }
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        print(self.view.frame.size.height / 3)
         return self.view.frame.size.height / 3
     }
 }
