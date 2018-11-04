@@ -10,11 +10,14 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
-    var playList = [FilmsList]()
+    let worker = NetWorker()
+    var playList = [Result]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: Cell.identifierCollectionView)
         self.setupTableViewCell()
+        print(playList)
+        getData()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,30 +74,52 @@ class TableViewCell: UITableViewCell {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[header][collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
     }
+    
+    func getData() {
+        let myCompletion: (Data?, Error?) -> Void = { [weak self] data, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            guard let data = data else { return }
+            let filmItems = try? JSONDecoder().decode(Welcome.self, from: data)
+            self!.playList = (filmItems?.results)!
+            print(self!.playList)
+        }
+        worker.swiftBookRequest(completion: myCompletion)
+    }
+    
+    
 }
-
-
-// MARK: TableViewCell Delegate
-
-extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return playList.count
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    // MARK: TableViewCell Delegate
+    
+    extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifierCollectionView, for: indexPath) as! CollectionViewCell
-        cell.imageView.image = UIImage(named: playList[indexPath.row].posterCinema)
-        cell.nameLabel.text = playList[indexPath.row].nameCinema
-        cell.yearLabel.text = playList[indexPath.row].dateCinema
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (frame.width - 40) / 3, height: frame.height - 40)
-    }
-    
-    
-    
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return playList.count
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifierCollectionView, for: indexPath) as! CollectionViewCell
+//            cell.imageView.image = UIImage(named: playList[indexPath.row].posterPath)
+//            cell.nameLabel.text = playList[indexPath.row].title
+//            cell.yearLabel.text = playList[indexPath.row].releaseDate
+            cell.nameLabel.text = playList[indexPath.row].title
+            cell.yearLabel.text = playList[indexPath.row].releaseDate
+            DispatchQueue.main.async {
+                cell.configure(image: self.playList[indexPath.row].posterPath)
+            }
+            
+            return cell
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: (frame.width - 40) / 3, height: frame.height - 40)
+        }
+        
+        
+        
 }

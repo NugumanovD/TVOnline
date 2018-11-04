@@ -19,6 +19,8 @@
 		7BB9D68E218345A3003B1910 /* TVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB9D68D218345A3003B1910 /* TVViewController.swift */; };
 		7BB9D6922183489B003B1910 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB9D6912183489B003B1910 /* TableViewCell.swift */; };
 		7BB9D6952184C1F9003B1910 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB9D6942184C1F9003B1910 /* CollectionViewCell.swift */; };
+		7BCC665D218DFE9E00BA1CB1 /* NetWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCC665C218DFE9E00BA1CB1 /* NetWorker.swift */; };
+		7BCC665F218DFEF400BA1CB1 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCC665E218DFEF400BA1CB1 /* Global.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		7BB9D68D218345A3003B1910 /* TVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewController.swift; sourceTree = "<group>"; };
 		7BB9D6912183489B003B1910 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		7BB9D6942184C1F9003B1910 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		7BCC665C218DFE9E00BA1CB1 /* NetWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorker.swift; sourceTree = "<group>"; };
+		7BCC665E218DFEF400BA1CB1 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 				7B52A1AD217B2861001028D8 /* Assets.xcassets */,
 				7B52A1AF217B2861001028D8 /* LaunchScreen.storyboard */,
 				7B52A1B2217B2861001028D8 /* Info.plist */,
+				7BCC665C218DFE9E00BA1CB1 /* NetWorker.swift */,
+				7BCC665E218DFEF400BA1CB1 /* Global.swift */,
 			);
 			path = TVOnline;
 			sourceTree = "<group>";
@@ -187,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BCC665D218DFE9E00BA1CB1 /* NetWorker.swift in Sources */,
 				7BB9D6922183489B003B1910 /* TableViewCell.swift in Sources */,
 				7B5A78B221825AF300A7218E /* TapBarContoller.swift in Sources */,
 				7B02200C218A0EB20040E1E9 /* SubcribeViewController.swift in Sources */,
@@ -194,6 +201,7 @@
 				7BB9D6952184C1F9003B1910 /* CollectionViewCell.swift in Sources */,
 				7B261F1A218C8E7B00ED5653 /* DataModel.swift in Sources */,
 				7B5A78B4218264C900A7218E /* VideoTableViewController.swift in Sources */,
+				7BCC665F218DFEF400BA1CB1 /* Global.swift in Sources */,
 				7BB9D68E218345A3003B1910 /* TVViewController.swift in Sources */,
 				7B02200E218A0F3C0040E1E9 /* SettingsScreenController.swift in Sources */,
 				7B52A1A7217B2860001028D8 /* AppDelegate.swift in Sources */,

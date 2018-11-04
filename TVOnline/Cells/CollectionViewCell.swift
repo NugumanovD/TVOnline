@@ -54,6 +54,19 @@ class CollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    func configure(image: String) {
+        let urlImage = URL(string: Resource.imageURL + image)
+        let imageView: UIImageView = (self.imageView)
+        DispatchQueue.global().async {
+            let data = try! Data(contentsOf: urlImage!)
+            let image = UIImage(data: data)!
+            imageView.contentMode = .scaleAspectFit
+            DispatchQueue.main.async {
+                imageView.image = image
+            }
+        }
+    }
+    
     func setupCell() {
         addSubview(imageView)
         addSubview(nameLabel)

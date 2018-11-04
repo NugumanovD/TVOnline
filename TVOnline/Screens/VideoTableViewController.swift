@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 class VideoTableViewController: UITableViewController {
+    var items = TableViewCell()
+    let worker = NetWorker()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +22,7 @@ class VideoTableViewController: UITableViewController {
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
         setupNavigationBar()
+//        getData()
         
     }
     
@@ -37,7 +41,7 @@ class VideoTableViewController: UITableViewController {
     let nameLabel: UILabel = {
         
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -47,18 +51,32 @@ class VideoTableViewController: UITableViewController {
         print("Find")
     }
     
+//    func getData() {
+//        let myCompletion: (Data?, Error?) -> Void = { [weak self] data, error in
+//            if let error = error {
+//                print(error)
+//                return
+//            }
+//            guard let data = data else { return }
+//            let filmItems = try? JSONDecoder().decode(Welcome.self, from: data)
+//            self!.items.playList = (filmItems?.results)!
+//            print(self!.items.playList)
+//    }
+//        worker.swiftBookRequest(completion: myCompletion)
+//    }
+    
+    
     // MARK: - TableView Delegate
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return infoList.count
+        return /*infoList.count*/ 3
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifierTableView, for: indexPath) as! TableViewCell
         cell.backgroundColor = .clear
-        cell.playList = infoList[indexPath.row].films
-        cell.headerNameResource.text = infoList[indexPath.row].nameResource
+//        cell.playList = infoList[indexPath.row]
         
         return cell
         

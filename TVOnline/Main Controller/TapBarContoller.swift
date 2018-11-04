@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum Cell {
-    static let identifierTableView = "tableView"
-    static let identifierCollectionView = "collectionView"
-}
-
 class TapBarContoller: UITabBarController {
     
     private var viewControllerList = [UIViewController]()

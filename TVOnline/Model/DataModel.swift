@@ -8,33 +8,71 @@
 
 import Foundation
 
-struct ModelList {
-    var nameResource: String
-    var films: [FilmsList]
+struct Welcome: Codable {
+    let page, totalResults, totalPages: Int?
+    let results: [Result]
+    
+    enum CodingKeys: String, CodingKey {
+        case page
+       
+        case totalResults = "total_results"
+        case totalPages = "total_pages"
+        case results
+    }
 }
 
-struct FilmsList {
-    var nameCinema: String
-    var dateCinema: String
-    var posterCinema: String
+struct Result: Codable {
+    
+    let voteCount, id: Int
+    let video: Bool
+    let voteAverage: Double
+    let title: String
+    let popularity: Double
+    let posterPath: String
+    let originalLanguage: OriginalLanguage
+    let originalTitle: String
+    let genreIDS: [Int]
+    let backdropPath: String?
+    let adult: Bool
+    let overview, releaseDate: String
+    
+    enum CodingKeys: String, CodingKey {
+        case voteCount = "vote_count"
+        case id, video
+        case voteAverage = "vote_average"
+        case title, popularity
+        case posterPath = "poster_path"
+        case originalLanguage = "original_language"
+        case originalTitle = "original_title"
+        case genreIDS = "genre_ids"
+        case backdropPath = "backdrop_path"
+        case adult, overview
+        case releaseDate = "release_date"
+    }
 }
 
-let ivi = ModelList(nameResource: "IVI", films: [
-    FilmsList(nameCinema: "22 Мили", dateCinema: "2018", posterCinema: "22miles"),
-    FilmsList(nameCinema: "Альфа", dateCinema: "2018", posterCinema: "alfa"),
-    FilmsList(nameCinema: "Великий Уравнитель 2", dateCinema: "2018", posterCinema: "grand"),
-    FilmsList(nameCinema: "Аксель", dateCinema: "2018", posterCinema: "axl")])
+enum OriginalLanguage: String, Codable {
+    case en = "en"
+    case zh = "zh"
+}
 
-let megogo = ModelList(nameResource: "MEGOGO", films: [
-    FilmsList(nameCinema: "Хищник", dateCinema: "2018", posterCinema: "hishnik"),
-    FilmsList(nameCinema: "Meg", dateCinema: "2018", posterCinema: "meg"),
-    FilmsList(nameCinema: "Мстители", dateCinema: "2018", posterCinema: "mstiteli"),
-    FilmsList(nameCinema: "Черная Пантера", dateCinema: "2018", posterCinema: "panther")])
+struct Company: Codable {
+    var ivi = "IVI"
+    var megogo = "MEGOGO"
+    var amediateka = "Amediateka"
+}
 
-let amediateka = ModelList(nameResource: "Amediateka", films: [
-    FilmsList(nameCinema: "Небоскреб", dateCinema: "2018", posterCinema: "neboscreb"),
-    FilmsList(nameCinema: "Ночь", dateCinema: "2018", posterCinema: "night"),
-    FilmsList(nameCinema: "Веном", dateCinema: "2018", posterCinema: "venom"),
-    FilmsList(nameCinema: "Охотник", dateCinema: "2018", posterCinema: "hunter")])
+enum CodingKeys: String, Codable  {
+    case ivi
+    case megogo
+    case amediateka
+}
 
-let infoList = [ivi, megogo, amediateka]
+
+
+
+
+ 
+
+
+
