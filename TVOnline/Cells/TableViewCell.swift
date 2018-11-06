@@ -65,13 +65,16 @@ class TableViewCell: UITableViewCell {
         collectionViewData.backgroundColor = .clear
         collectionViewData.delegate = self
         collectionViewData.dataSource = self
+        
         collectionViewData.register(CollectionViewCell.self, forCellWithReuseIdentifier: Cell.identifierCollectionView)
         
         let views = ["collection": collectionViewData, "header": headerNameResource, "moreButton": moreButton]
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-15-[header][moreButton]-15-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-5-[header]-10-[moreButton]-5-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[header][collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[header(25)]-1-[collection]-5-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[moreButton]-5-[collection]-2-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[header]-[moreButton]-10-[collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
     }
     
     func getData() {
@@ -104,16 +107,18 @@ class TableViewCell: UITableViewCell {
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifierCollectionView, for: indexPath) as! CollectionViewCell
+            DispatchQueue.main.async {
+                
             
-            cell.nameLabel.text = playList[indexPath.row].title
-            cell.yearLabel.text = playList[indexPath.row].releaseDate
-            cell.configure(image: self.playList[indexPath.row].posterPath)
-
+                cell.nameLabel.text = self.playList[indexPath.row].title
+                cell.yearLabel.text = self.playList[indexPath.row].releaseDate
+                cell.configure(image: self.playList[indexPath.row].posterPath)
+            }
             return cell
            
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: (frame.width - 40) / 3, height: frame.height - 40)
+            return CGSize(width: (frame.width - 30) / 3, height: frame.height - 30)
         }
 }

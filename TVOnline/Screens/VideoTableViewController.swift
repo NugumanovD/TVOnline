@@ -57,17 +57,20 @@ class VideoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifierTableView, for: indexPath) as! TableViewCell
-        cell.backgroundColor = .clear
         
-        switch indexPath.row {
-        case 0:
-            cell.headerNameResource.text = "IVI"
-        case 1:
-            cell.headerNameResource.text = "MEGOGO"
-        case 3:
-            cell.headerNameResource.text = "AMEDI"
-        default:
-            break
+        DispatchQueue.main.async {
+            cell.backgroundColor = .clear
+            
+            switch indexPath.row {
+            case 0:
+                cell.headerNameResource.text = "IVI"
+            case 1:
+                cell.headerNameResource.text = "MEGOGO"
+            case 2:
+                cell.headerNameResource.text = "AMEDIATEKA"
+            default:
+                break
+            }
         }
         return cell
     }
