@@ -21,6 +21,12 @@ class VideoTableViewController: UITableViewController {
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
         setupNavigationBar()
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     func setupNavigationBar() {
@@ -60,14 +66,18 @@ class VideoTableViewController: UITableViewController {
         
         DispatchQueue.main.async {
             cell.backgroundColor = .clear
+            cell.setupTableViewCell()
             
             switch indexPath.row {
             case 0:
                 cell.headerNameResource.text = "IVI"
+                
             case 1:
                 cell.headerNameResource.text = "MEGOGO"
+                cell.getData()
             case 2:
                 cell.headerNameResource.text = "AMEDIATEKA"
+                cell.getData()
             default:
                 break
             }
@@ -76,6 +86,7 @@ class VideoTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.size.height / 3
+        
+        return 260
     }
 }

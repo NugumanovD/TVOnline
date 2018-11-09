@@ -15,8 +15,9 @@ class TableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: Cell.identifierCollectionView)
-        self.setupTableViewCell()
+//        self.setupTableViewCell()
         getData()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,6 +49,7 @@ class TableViewCell: UITableViewCell {
         
         button.setTitle("Еще >", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 0.9465699914), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 13)
         button.addTarget(self, action: #selector(more), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -70,55 +72,57 @@ class TableViewCell: UITableViewCell {
         
         let views = ["collection": collectionViewData, "header": headerNameResource, "moreButton": moreButton]
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-5-[header]-10-[moreButton]-5-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[header]-[moreButton]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[header(25)]-1-[collection]-5-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
-         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[moreButton]-5-[collection]-2-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[header]-[moreButton]-10-[collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[moreButton]-5-[collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[header]-10-[collection]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
     }
     
     func getData() {
-        
-        let myCompletion: (Data?, Error?) -> Void = { [weak self] data, error in
+
+        let downLoadData: (Data?, Error?) -> Void = { [weak self] data, error in
             if let error = error {
                 print(error)
                 return
             }
             guard let data = data else { return }
-            
-                let filmItems = try? JSONDecoder().decode(Welcome.self, from: data)
-                self!.playList = (filmItems?.results)!
+
+            let filmItems = try? JSONDecoder().decode(TheMovieDB.self, from: data)
+            self!.playList = (filmItems?.results)!
+//            print(filmItems)
             
         }
-            self.worker.swiftBookRequest(completion: myCompletion)
+        self.worker.loadData(completion: downLoadData)
+    }
+}
+
+
+// MARK: TableViewCell Delegate
+
+extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return playList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifierCollectionView, for: indexPath) as! CollectionViewCell
+        DispatchQueue.main.async {
+            
+            cell.nameLabel.text = self.playList[indexPath.row].title
+            cell.yearLabel.text = self.playList[indexPath.row].releaseDate
+            cell.configure(image: self.playList[indexPath.row].posterPath)
+        }
+        return cell
         
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-}
+        return UIEdgeInsets(top: 14, left: 12, bottom: 20, right: 12)
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (frame.width - 20) / 3, height: frame.height - 20)
+    }
     
-    // MARK: TableViewCell Delegate
-    
-    extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return playList.count
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifierCollectionView, for: indexPath) as! CollectionViewCell
-            DispatchQueue.main.async {
-                
-            
-                cell.nameLabel.text = self.playList[indexPath.row].title
-                cell.yearLabel.text = self.playList[indexPath.row].releaseDate
-                cell.configure(image: self.playList[indexPath.row].posterPath)
-            }
-            return cell
-           
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: (frame.width - 30) / 3, height: frame.height - 30)
-        }
 }

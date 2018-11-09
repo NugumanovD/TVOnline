@@ -23,7 +23,7 @@ class CollectionViewCell: UICollectionViewCell {
         
         let image = UIImageView()
         
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleAspectFit
         image.layer.cornerRadius = 6
         image.layer.masksToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ class CollectionViewCell: UICollectionViewCell {
         DispatchQueue.global().async {
             let data = try! Data(contentsOf: urlImage!)
             let image = UIImage(data: data)!
-
+            
             DispatchQueue.main.async {
                 imageView.image = image
             }
@@ -77,6 +77,6 @@ class CollectionViewCell: UICollectionViewCell {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[image]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[name]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[year]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[image(170)][name][year]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[image(170)][name][year]->=0-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
     }
 }

@@ -13,10 +13,15 @@ class NetWorker {
     var task: URLSessionDataTask?
    
     @discardableResult
-    func swiftBookRequest(completion: @escaping (Data?, Error?) -> Void) -> URLSessionTask {
+    func loadData(completion: @escaping (Data?, Error?) -> Void) -> URLSessionTask {
+        let pageArray = ["1", "2", "3", "4"]
         
-        let url = URL(string: Resource.mainURL)
-        let request = URLRequest(url: url!)
+//        let url = URL(string: Resource.mainURL)
+        let url = URL(string: Global.url + Global.APIKey + "&page=" + pageArray[1])
+        
+//        let request = URLRequest(url: url!)
+        let request = URLRequest(url: url!, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 1)
+//        print(request)
         
         let responseBlock: (Data?, URLResponse?, Error?) -> Void = {data, response, error in
             self.task = nil
