@@ -12,8 +12,6 @@ class TapBarContoller: UITabBarController {
     
     private var viewControllerList = [UIViewController]()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,8 +20,6 @@ class TapBarContoller: UITabBarController {
         setupTabBarElement(vc: SubcribeViewController(), title: "Subcribe", image: "follower")
         setupTabBarElement(vc: MyProfileViewController(), title: "Profile", image: "profile")
         setupTabBarElement(vc: SettingsScreenController(), title: "Settings", image: "settings")
-        
-        
     }
     
     func setupTabBarElement(vc: UIViewController, title: String, image: String)  {
@@ -36,8 +32,6 @@ class TapBarContoller: UITabBarController {
         viewControllerList.append(controller)
         viewControllers = viewControllerList
     }
-    
-    
 }
 
 

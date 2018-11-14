@@ -9,27 +9,33 @@
 import Foundation
 
 class NetWorker {
-    
+    var items = [Result]()
     var task: URLSessionDataTask?
-   
+    
     @discardableResult
-    func loadData(completion: @escaping (Data?, Error?) -> Void) -> URLSessionTask {
-        let pageArray = ["1", "2", "3", "4"]
+    func loadData(completion: @escaping (URL, Data?, Error?) -> Void) -> URLSessionTask {
         
-//        let url = URL(string: Resource.mainURL)
-        let url = URL(string: Global.url + Global.APIKey + "&page=" + pageArray[1])
-        
-//        let request = URLRequest(url: url!)
+        let url = URL(string: Global.url + Global.APIKey)
         let request = URLRequest(url: url!, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 1)
-//        print(request)
-        
         let responseBlock: (Data?, URLResponse?, Error?) -> Void = {data, response, error in
             self.task = nil
-            completion(data, error)
+            completion(url!, data, error)
         }
         task = URLSession.shared.dataTask(with: request, completionHandler: responseBlock)
-        
         task?.resume()
         return task!
+    }
+    
+    func load() {
+        let downLoadData: (URL, Data?, Error?) -> Void = {url, data, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            guard let data = data else { return }
+            let filmItems = try? JSONDecoder().decode(TheMovieDB.self, from: data)
+            self.items = (filmItems?.results)!
+        }
+        self.loadData(completion: downLoadData)
     }
 }

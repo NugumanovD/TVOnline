@@ -21,4 +21,13 @@ enum Resource {
 enum Global {
     static let url = "https://api.themoviedb.org/3/movie/popular?api_key="
     static let APIKey = "6f6dff2efb177949eee7206b2f7203de"
+//    static let languageEng = "&language=en-US"
+//    static let languageRus = "&language=ru-RU"
+//    static let languageUA = "&language=ua-UA"
+}
+
+enum Language {
+    static let ru = "&language=ru-RU"
+    static let eng = "&language=en-US"
+    static let ua = "&language=ua-UA"
 }

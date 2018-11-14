@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
+class VideoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,8 +22,7 @@ class CollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView = {
         
         let image = UIImageView()
-        
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 6
         image.layer.masksToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +35,6 @@ class CollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = label.font.withSize(16)
-        label.text = "Hello"
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -47,8 +45,7 @@ class CollectionViewCell: UICollectionViewCell {
         
         let label = UILabel()
         label.textColor = .white
-        label.font = label.font.withSize(14)
-        label.text = "2004"
+        label.font = label.font.withSize(11)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -60,7 +57,6 @@ class CollectionViewCell: UICollectionViewCell {
         DispatchQueue.global().async {
             let data = try! Data(contentsOf: urlImage!)
             let image = UIImage(data: data)!
-            
             DispatchQueue.main.async {
                 imageView.image = image
             }
@@ -77,6 +73,6 @@ class CollectionViewCell: UICollectionViewCell {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[image]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[name]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-3-[year]-3-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[image(170)][name][year]->=0-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[image(180)][name][year]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: views))
     }
 }

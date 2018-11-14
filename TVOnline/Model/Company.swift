@@ -8,10 +8,9 @@
 
 import Foundation
 
-struct Company {
+struct Company: Codable {
     var name: String
-    var result: [Result]
-    var page: String
+    var dataBase: [TheMovieDB]
 }
 
 

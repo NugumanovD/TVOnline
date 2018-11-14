@@ -10,44 +10,40 @@ import Foundation
 import UIKit
 
 class VideoTableViewController: UITableViewController {
-    var items = TableViewCell()
+    private var refresh: UIRefreshControl!
+    
     let worker = NetWorker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: Cell.identifierTableView)
+        tableView.register(VideoTableViewCell.self, forCellReuseIdentifier: Cell.identifierTableView)
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
         setupNavigationBar()
         
-        
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    
+    func randomNumberForPage() -> Int{
+        let number = Int.random(in: 1 ..< 900)
+        return number
     }
     
     func setupNavigationBar() {
         navigationController?.navigationBar.barTintColor = .clear
         self.navigationItem.title = "Видео"
-        
         let searchItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(find))
-        
         searchItem.tintColor = UIColor(cgColor: #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 0.9465699914))
-        
         self.navigationItem.rightBarButtonItem = searchItem
     }
     
-    let nameLabel: UILabel = {
-        
-        let label = UILabel()
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            refreshControl.endRefreshing()
+        }
+    }
     
     @objc func find() {
         print("Find")
@@ -62,22 +58,22 @@ class VideoTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifierTableView, for: indexPath) as! TableViewCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifierTableView, for: indexPath) as! VideoTableViewCell
+        cell.backgroundColor = .clear
+        cell.setupTableViewCell()
         DispatchQueue.main.async {
-            cell.backgroundColor = .clear
-            cell.setupTableViewCell()
             
             switch indexPath.row {
+                
             case 0:
                 cell.headerNameResource.text = "IVI"
-                
+                cell.getData(number: self.randomNumberForPage())
             case 1:
                 cell.headerNameResource.text = "MEGOGO"
-                cell.getData()
+                cell.getData(number: self.randomNumberForPage())
             case 2:
                 cell.headerNameResource.text = "AMEDIATEKA"
-                cell.getData()
+                cell.getData(number: self.randomNumberForPage())
             default:
                 break
             }
@@ -86,7 +82,6 @@ class VideoTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return 260
+        return 290
     }
 }
