@@ -9,16 +9,22 @@
 import Foundation
 import UIKit
 
-class VideoTableViewController: UITableViewController {
+class VideoTableViewController: UITableViewController, VideoCollectionCellProtocol {
+    
+    func didPressedCell(sender: Any) {
+        let vc = DetailMovieScreen()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
     private var refresh: UIRefreshControl!
     
-    let worker = NetWorker()
+    let cellIndex = VideoTableViewCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(VideoTableViewCell.self, forCellReuseIdentifier: Cell.identifierTableView)
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
         setupNavigationBar()
@@ -56,18 +62,21 @@ class VideoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return  3
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifierTableView, for: indexPath) as! VideoTableViewCell
+        cell.delegate = self
         cell.backgroundColor = .clear
         cell.setupTableViewCell()
+        
         DispatchQueue.main.async {
-            
+
             switch indexPath.row {
-                
+
             case 0:
                 cell.headerNameResource.text = "IVI"
                 cell.getData(number: self.randomNumberForPage())
+                
             case 1:
                 cell.headerNameResource.text = "MEGOGO"
                 cell.getData(number: self.randomNumberForPage())
@@ -80,8 +89,16 @@ class VideoTableViewController: UITableViewController {
         }
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 290
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+        
+//        navigationController?.present(DetailMovieScreen(), animated: true, completion: nil)
+
+    }
 }
+

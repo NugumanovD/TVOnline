@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol VideoCollectionCellProtocol: NSObjectProtocol {
+    func didPressedCell(sender: Any)
+}
+
 class VideoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
@@ -52,13 +56,16 @@ class VideoCollectionViewCell: UICollectionViewCell {
     }()
     
     func configure(image: String) {
-        let urlImage = URL(string: Resource.imageURL + image)
-        let imageView: UIImageView = (self.imageView)
+        guard let urlImage = URL(string: Resource.imageURL + image) else { return }
+        let imageView: UIImageView = (self.imageView) 
         DispatchQueue.global().async {
-            let data = try! Data(contentsOf: urlImage!)
-            let image = UIImage(data: data)!
-            DispatchQueue.main.async {
-                imageView.image = image
+            do {
+                let data = try! Data(contentsOf: urlImage)
+                let image = UIImage(data: data)
+                
+                DispatchQueue.main.async {
+                    imageView.image = image
+                }
             }
         }
     }

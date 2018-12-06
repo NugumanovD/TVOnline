@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NetWorker {
+class NetworkManager {
     var items = [Result]()
     var task: URLSessionDataTask?
     
